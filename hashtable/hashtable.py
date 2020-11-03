@@ -22,9 +22,18 @@ class HashTable:
 
     def __init__(self, capacity):
         # Your code here
+
+        # ## Before Optimization
+        self.capacity = capacity
+        self.storage = [None] * capacity
+
+
+        # Optimized Vers.
         self.capacity = capacity
         self.storage = [None] * capacity
         self.items = 0
+
+
 
     def get_num_slots(self):
         """
@@ -58,8 +67,8 @@ class HashTable:
         """
 
         # Your code here
-        fnvPrime = 2**40 + 2**8 + 0xb3 #64-bit Prime
-        hash = 14695981039346656037 
+        fnvPrime = 3**20 + 4**5 + 0xb3 #64-bit Prime
+        hash = 589797 
         for i in key:
             hash *= fnvPrime
             hash = hash ^ ord(i)
@@ -76,7 +85,7 @@ class HashTable:
         hash = 5381
         for c in key:
             hash = (hash * 33) + ord(c)
-        return hash
+        return hash & 0xFFFFFFFFFFFFFFFF
 
 
     def hash_index(self, key):
@@ -96,6 +105,11 @@ class HashTable:
         Implement this.
         """
         # Your code here
+
+        ## Before Optimization
+        # self.storage[self.hash_index(key)] = value
+
+        #Optimized versioin
         index = self.hash_index(key)
         hte = HashTableEntry(key, value)
         node = self.storage[index]
@@ -115,6 +129,15 @@ class HashTable:
         Implement this.
         """
         # Your code here
+
+        # #Before Optimized
+        # if self.storage[self.hash_index(key)] is None:
+        #     print(f"The key '{key}' does not exist ")
+        # else:
+        #     self.storage[self.hash_index(key)] = None
+
+
+        #Optimized Vers.
         index = self.hash_index(key)
         node = self.storage[index]
         prev = None
@@ -139,6 +162,14 @@ class HashTable:
         Implement this.
         """
         # Your code here
+
+        # #Before Optimization
+        # if self.storage[self.hash_index(key)] is None:
+        #     print(f"The key '{key}' does not exist")
+        # else:
+        #     return self.storage[self.hash_index(key)]
+
+        #Optimized Version
         index = self.hash_index(key)
         node = self.storage[index]
         if node is not None:
