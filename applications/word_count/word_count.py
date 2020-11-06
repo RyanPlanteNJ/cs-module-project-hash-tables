@@ -1,7 +1,3 @@
-import re
-
-cache = {}
-
 def word_count(s):
     # Your code here
     name= s.replace('"','').replace(':','').replace(';','').replace(',','').replace('.','').replace('-','').replace('+','').replace('=','').replace('/','').replace("|",'').replace('[','').replace(']','').replace('{','').replace('}','').replace('(','').replace(')','').replace('*','').replace('^','').replace('&','').replace('\\','')
